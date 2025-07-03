@@ -90,9 +90,7 @@
             box-shadow: 0 0 20px rgba(0, 255, 252, 0.3);
             max-width: 300px;
             transition: transform 0.3s;
-            display: block;
-            text-decoration: none;
-            color: inherit;
+            cursor: pointer;
         }
         
         .icon-box:hover {
@@ -571,7 +569,7 @@
         </header>
         
         <div class="logo-container">
-            <img src=" 51D8C18B-603C-4B80-92F5-609229941BF4.png" alt="MWT Logo" class="logo">
+            <img src="https://i.ibb.co/VYvLqQk/mwt-logo.png" alt="MWT Logo" class="logo">
             <h1 class="title">توانمندسازی سفر معاملاتی شما</h1>
             <p class="subtitle">Empowering your trade journey</p>
             <h2 class="founder">بنیانگذار مفهوم MWT</h2>
@@ -580,19 +578,19 @@
         
         <!-- بخش درباره ما -->
         <h2 class="section-header">درباره ی ما</h2>
-        <a href="#about" class="icon-box" id="about-section">
+        <div class="icon-box" id="about-section">
             <div class="section-icon">
                 <i class="fas fa-users"></i>
             </div>
-        </a>
+        </div>
         
         <!-- بخش خدمات -->
         <h2 class="section-header">خدمات</h2>
-        <a href="#services" class="icon-box" id="services-section">
+        <div class="icon-box" id="services-section">
             <div class="section-icon">
                 <i class="fas fa-graduation-cap"></i>
             </div>
-        </a>
+        </div>
         
         <!-- متن انگیزشی -->
         <div class="motivational-box" id="motivational-box">
@@ -966,8 +964,8 @@
         const aboutPage = document.getElementById('about-page');
         const servicesPage = document.getElementById('services-page');
         const protectedServicesPage = document.getElementById('protected-services-page');
-        const aboutLink = document.getElementById('about-section');
-        const servicesLink = document.getElementById('services-section');
+        const aboutSection = document.getElementById('about-section');
+        const servicesSection = document.getElementById('services-section');
         const backBtnAbout = document.getElementById('back-btn-about');
         const backBtnServices = document.getElementById('back-btn-services');
         const backBtnProtected = document.getElementById('back-btn-protected');
@@ -977,13 +975,11 @@
             page.classList.add('active');
         }
         
-        aboutLink.addEventListener('click', (e) => {
-            e.preventDefault();
+        aboutSection.addEventListener('click', () => {
             showPage(aboutPage);
         });
         
-        servicesLink.addEventListener('click', (e) => {
-            e.preventDefault();
+        servicesSection.addEventListener('click', () => {
             // بررسی آیا کاربر ثبت نام کرده یا نه
             if (localStorage.getItem('registeredUser')) {
                 showPage(servicesPage);
