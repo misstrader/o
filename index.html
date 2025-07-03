@@ -89,6 +89,14 @@
             text-align: center;
             box-shadow: 0 0 20px rgba(0, 255, 252, 0.3);
             max-width: 300px;
+            transition: transform 0.3s;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-5px);
         }
         
         .section-icon {
@@ -324,6 +332,117 @@
             color: var(--neon-blue);
         }
         
+        /* مودال‌ها */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--neon-blue);
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 30px var(--neon-blue);
+            position: relative;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 252, 0.3);
+        }
+        
+        .form-submit {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+        
+        .form-submit:hover {
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        
+        .success-message {
+            display: none;
+            color: #00ff00;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            animation: glow 1.5s infinite alternate;
+        }
+        
+        .error-message {
+            display: none;
+            color: #ff5555;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        
         /* انیمیشن‌ها */
         @keyframes glow {
             from {
@@ -393,10 +512,53 @@
         body.english .contact-item:hover {
             transform: translateX(-5px);
         }
+        
+        body.english .close-btn {
+            left: auto;
+            right: 10px;
+        }
+        
+        /* دکمه بازگشت */
+        .back-btn {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        
+        /* صفحات جداگانه */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* پیام محافظت شده */
+        .protected-message {
+            background: var(--card-bg);
+            border: 1px solid var(--neon-blue);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 252, 0.3);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- صفحه اصلی -->
+    <div class="container main-page active" id="main-page">
         <header>
             <div class="language-switcher">
                 <button class="language-btn" id="lang-fa">فارسی</button>
@@ -409,7 +571,7 @@
         </header>
         
         <div class="logo-container">
-            <img src= " 51D8C18B-603C-4B80-92F5-609229941BF4.png" alt="MWT Logo" class="logo">
+            <img src="https://i.ibb.co/VYvLqQk/mwt-logo.png" alt="MWT Logo" class="logo">
             <h1 class="title">توانمندسازی سفر معاملاتی شما</h1>
             <p class="subtitle">Empowering your trade journey</p>
             <h2 class="founder">بنیانگذار مفهوم MWT</h2>
@@ -418,19 +580,19 @@
         
         <!-- بخش درباره ما -->
         <h2 class="section-header">درباره ی ما</h2>
-        <div class="icon-box">
+        <a href="#about" class="icon-box" id="about-section">
             <div class="section-icon">
                 <i class="fas fa-users"></i>
             </div>
-        </div>
+        </a>
         
         <!-- بخش خدمات -->
         <h2 class="section-header">خدمات</h2>
-        <div class="icon-box">
+        <a href="#services" class="icon-box" id="services-section">
             <div class="section-icon">
                 <i class="fas fa-graduation-cap"></i>
             </div>
-        </div>
+        </a>
         
         <!-- متن انگیزشی -->
         <div class="motivational-box" id="motivational-box">
@@ -508,6 +670,96 @@
         </div>
     </div>
     
+    <!-- صفحه درباره ما -->
+    <div class="container page" id="about-page">
+        <button class="back-btn" id="back-btn-about"><i class="fas fa-arrow-right"></i> بازگشت</button>
+        <h2 class="section-header">درباره ما</h2>
+        <div class="motivational-box">
+            <p>ما در MWT Concept با ترکیب دانش تحلیل تکنیکال، فاندامنتال و استرولوژی مالی، روشی نوین در معاملات ارائه می‌دهیم.</p>
+            <p>تیم ما متشکل از متخصصان با تجربه در زمینه‌های مختلف مالی است که سال‌ها در بازارهای جهانی فعالیت داشته‌اند.</p>
+            <p>هدف ما توانمندسازی معامله‌گران با ارائه ابزارها و دانش لازم برای موفقیت در بازارهای مالی است.</p>
+        </div>
+    </div>
+    
+    <!-- صفحه خدمات -->
+    <div class="container page" id="services-page">
+        <button class="back-btn" id="back-btn-services"><i class="fas fa-arrow-right"></i> بازگشت</button>
+        <h2 class="section-header">خدمات ما</h2>
+        <div class="motivational-box">
+            <h3 style="color: var(--neon-blue); margin-bottom: 15px;">آموزش ترید اسکلپ</h3>
+            <p>آموزش تخصصی معاملات اسکلپ با استفاده از ترکیب تحلیل تکنیکال و زمان‌بندی نجومی</p>
+            
+            <h3 style="color: var(--neon-blue); margin-bottom: 15px; margin-top: 30px;">آموزش ترید روندی</h3>
+            <p>شناسایی و معامله در روندهای اصلی بازار با استفاده از تحلیل چند زمانه</p>
+            
+            <h3 style="color: var(--neon-blue); margin-bottom: 15px; margin-top: 30px;">مشاوره مالی</h3>
+            <p>مشاوره تخصصی برای مدیریت سرمایه و کاهش ریسک در معاملات</p>
+        </div>
+    </div>
+    
+    <!-- صفحه خدمات محافظت شده -->
+    <div class="container page" id="protected-services-page">
+        <button class="back-btn" id="back-btn-protected"><i class="fas fa-arrow-right"></i> بازگشت</button>
+        <div class="protected-message">
+            <h2>برای دسترسی به این بخش باید ثبت نام کنید</h2>
+            <button class="auth-btn register" style="margin-top: 20px; padding: 10px 20px;">ثبت نام</button>
+        </div>
+    </div>
+    
+    <!-- مودال ورود -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>ورود به حساب کاربری</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">ایمیل</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">رمز عبور</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="form-submit">ورود</button>
+                <div class="success-message" id="login-success"></div>
+                <div class="error-message" id="login-error"></div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- مودال ثبت نام -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>ثبت نام جدید</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-name">نام کامل</label>
+                    <input type="text" id="reg-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">ایمیل</label>
+                    <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">شماره تماس</label>
+                    <input type="tel" id="reg-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">رمز عبور</label>
+                    <input type="password" id="reg-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm">تکرار رمز عبور</label>
+                    <input type="password" id="reg-confirm" required>
+                </div>
+                <button type="submit" class="form-submit">ثبت نام</button>
+                <div class="success-message" id="register-success"></div>
+                <div class="error-message" id="register-error"></div>
+            </form>
+        </div>
+    </div>
+    
     <script>
         // مدیریت زبان
         const langFa = document.getElementById('lang-fa');
@@ -525,6 +777,7 @@
                 contact: "مسیر های ارتباطی",
                 login: "ورود",
                 register: "ثبت نام",
+                back: "بازگشت",
                 motivationalTexts: [
                     "در دنیای پر از نوسان و فرصت‌های بی‌پایان بازارهای مالی، موفقیت تنها از آن کسانی است که جرئت می‌کنند قدم اول را بردارند، پشتکار دارند و همواره در مسیر یادگیری و رشد هستند. ترید کردن، هنر تحلیل و تصمیم‌گیری در لحظه‌های حساس است که می‌تواند زندگی شما را متحول کند.",
                     "ما در کنار تحلیل تکنیکال و فاندامنتال، از قدرت استرولوژی مالی نیز بهره می‌بریم؛ دانشی که با بررسی موقعیت سیارات و تأثیرات آن‌ها بر احساسات جمعی بازار، به ما دیدگاهی عمیق‌تر و زمان‌بندی دقیق‌تری برای ورود و خروج می‌دهد. این ترکیب هوشمندانه از علم و هنر، می‌تواند شما را چند قدم جلوتر از بازار نگه دارد.",
@@ -541,7 +794,17 @@
                         "ما از تحلیل تکنیکال و فاندامنتال در کنار استرولوژی مالی استفاده می‌کنیم.",
                         "لطفاً شماره تماس خود را بگذارید تا با شما تماس بگیریم."
                     ]
-                }
+                },
+                register: {
+                    success: "ثبت نام شما با موفقیت انجام شد! به صفحه خدمات منتقل شدید.",
+                    error: "خطا در ثبت نام. لطفاً دوباره تلاش کنید.",
+                    passwordMismatch: "رمز عبور و تکرار آن مطابقت ندارند!"
+                },
+                login: {
+                    success: "ورود با موفقیت انجام شد!",
+                    error: "ایمیل یا رمز عبور اشتباه است."
+                },
+                protectedContent: "برای دسترسی به این بخش باید ثبت نام کنید."
             },
             en: {
                 title: "Empowering Your Trading Journey",
@@ -553,6 +816,7 @@
                 contact: "Contact Ways",
                 login: "Login",
                 register: "Register",
+                back: "Back",
                 motivationalTexts: [
                     "In the world of volatile and endless opportunities in financial markets, success belongs only to those who dare to take the first step, persevere, and are constantly on the path of learning and growth. Trading is the art of analysis and decision-making in critical moments that can transform your life.",
                     "Along with technical and fundamental analysis, we also utilize the power of financial astrology; a knowledge that by examining the positions of planets and their effects on the collective emotions of the market, gives us a deeper perspective and more precise timing for entry and exit. This intelligent combination of science and art can keep you several steps ahead of the market.",
@@ -569,7 +833,17 @@
                         "We use technical and fundamental analysis along with financial astrology.",
                         "Please leave your phone number so we can contact you."
                     ]
-                }
+                },
+                register: {
+                    success: "Your registration was successful! Redirected to services page.",
+                    error: "Registration error. Please try again.",
+                    passwordMismatch: "Password and confirmation do not match!"
+                },
+                login: {
+                    success: "Login successful!",
+                    error: "Email or password is incorrect."
+                },
+                protectedContent: "You need to register to access this section."
             }
         };
         
@@ -591,6 +865,9 @@
             document.querySelectorAll('.support-title')[1].textContent = t.contact;
             document.querySelector('.login-btn').textContent = t.login;
             document.querySelector('.register-btn').textContent = t.register;
+            document.querySelectorAll('.back-btn').forEach(btn => {
+                btn.innerHTML = `<i class="fas fa-arrow-${lang === 'fa' ? 'right' : 'left'}"></i> ${t.back}`;
+            });
             
             // به‌روزرسانی متن‌های انگیزشی
             const motivationalTexts = document.querySelectorAll('#motivational-box p');
@@ -604,6 +881,13 @@
             document.querySelector('.chat-header span').textContent = t.chat.title;
             document.querySelector('.chat-input').placeholder = t.chat.placeholder;
             document.querySelector('#chat-messages .received p').textContent = t.chat.greeting;
+            
+            // به‌روزرسانی صفحه محافظت شده
+            const protectedPage = document.getElementById('protected-services-page');
+            if (protectedPage) {
+                protectedPage.querySelector('h2').textContent = t.protectedContent;
+                protectedPage.querySelector('.auth-btn').textContent = t.register;
+            }
         }
         
         langFa.addEventListener('click', () => changeLanguage('fa'));
@@ -675,6 +959,179 @@
             if (e.key === 'Enter') {
                 sendMessage();
             }
+        });
+        
+        // مدیریت صفحات
+        const mainPage = document.getElementById('main-page');
+        const aboutPage = document.getElementById('about-page');
+        const servicesPage = document.getElementById('services-page');
+        const protectedServicesPage = document.getElementById('protected-services-page');
+        const aboutLink = document.getElementById('about-section');
+        const servicesLink = document.getElementById('services-section');
+        const backBtnAbout = document.getElementById('back-btn-about');
+        const backBtnServices = document.getElementById('back-btn-services');
+        const backBtnProtected = document.getElementById('back-btn-protected');
+        
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            page.classList.add('active');
+        }
+        
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage(aboutPage);
+        });
+        
+        servicesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // بررسی آیا کاربر ثبت نام کرده یا نه
+            if (localStorage.getItem('registeredUser')) {
+                showPage(servicesPage);
+            } else {
+                showPage(protectedServicesPage);
+            }
+        });
+        
+        backBtnAbout.addEventListener('click', () => showPage(mainPage));
+        backBtnServices.addEventListener('click', () => showPage(mainPage));
+        backBtnProtected.addEventListener('click', () => showPage(mainPage));
+        
+        // مدیریت مودال‌ها
+        const loginBtn = document.querySelector('.login-btn');
+        const registerBtn = document.querySelector('.register-btn');
+        const protectedRegisterBtn = document.querySelector('#protected-services-page .auth-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const closeBtns = document.querySelectorAll('.close-btn');
+        
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            registerModal.style.display = 'flex';
+        });
+        
+        protectedRegisterBtn.addEventListener('click', () => {
+            registerModal.style.display = 'flex';
+        });
+        
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+            });
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+        
+        // مدیریت ثبت نام
+        const registerForm = document.getElementById('register-form');
+        const registerSuccess = document.getElementById('register-success');
+        const registerError = document.getElementById('register-error');
+        
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const currentLang = document.documentElement.lang;
+            const t = translations[currentLang].register;
+            
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm').value;
+            
+            // پنهان کردن پیام‌های قبلی
+            registerSuccess.style.display = 'none';
+            registerError.style.display = 'none';
+            
+            // بررسی تطابق رمز عبور
+            if (password !== confirmPassword) {
+                registerError.textContent = t.passwordMismatch;
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            // ذخیره اطلاعات کاربر
+            const userData = {
+                name,
+                email,
+                phone,
+                registeredAt: new Date().toLocaleString(),
+                source: window.location.href
+            };
+            
+            // شبیه‌سازی ارسال به سرور
+            setTimeout(() => {
+                // ذخیره در localStorage
+                localStorage.setItem('registeredUser', JSON.stringify(userData));
+                
+                // نمایش پیام موفقیت
+                registerSuccess.textContent = t.success;
+                registerSuccess.style.display = 'block';
+                
+                // بستن مودال بعد از 3 ثانیه
+                setTimeout(() => {
+                    registerModal.style.display = 'none';
+                    registerForm.reset();
+                    showPage(servicesPage);
+                }, 3000);
+                
+                // نمایش اطلاعات کاربر در کنسول
+                console.log('کاربر جدید ثبت نام کرد:', userData);
+            }, 1500);
+        });
+        
+        // مدیریت ورود
+        const loginForm = document.getElementById('login-form');
+        const loginSuccess = document.getElementById('login-success');
+        const loginError = document.getElementById('login-error');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const currentLang = document.documentElement.lang;
+            const t = translations[currentLang].login;
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // پنهان کردن پیام‌های قبلی
+            loginSuccess.style.display = 'none';
+            loginError.style.display = 'none';
+            
+            // شبیه‌سازی بررسی اعتبار
+            setTimeout(() => {
+                // بررسی آیا کاربر ثبت نام کرده یا نه
+                const registeredUser = localStorage.getItem('registeredUser');
+                if (registeredUser) {
+                    const user = JSON.parse(registeredUser);
+                    if (user.email === email) {
+                        // نمایش پیام موفقیت
+                        loginSuccess.textContent = t.success;
+                        loginSuccess.style.display = 'block';
+                        
+                        // بستن مودال بعد از 2 ثانیه
+                        setTimeout(() => {
+                            loginModal.style.display = 'none';
+                            loginForm.reset();
+                        }, 2000);
+                        return;
+                    }
+                }
+                
+                // نمایش خطا
+                loginError.textContent = t.error;
+                loginError.style.display = 'block';
+            }, 1500);
         });
         
         // مقداردهی اولیه با زبان فارسی
